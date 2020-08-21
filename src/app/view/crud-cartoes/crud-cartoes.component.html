@@ -1,0 +1,56 @@
+<p-toolbar class="div-botoes" styleClass="p-mb-4">
+    <h2>Gerenciar Cartoes do Usuario</h2>
+    <ng-template pTemplate="left">
+    </ng-template>
+    <ng-template pTemplate="right">
+        <button pButton type="button" label="Adicionar" class="p-button-outlined" routerLink="/cartoes/create"></button>
+        <button pButton pRipple icon="pi pi-trash" class="p-button-danger" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+        <button pButton pRipple icon="pi pi-arrow-left" label="Retornar" class="p-button-secondary" routerLink="/usuarios"></button>
+    </ng-template>
+</p-toolbar>
+
+<div>
+    <p-table [value]="cartoes" #dt [value]="cartoes" [rows]="10" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" 
+        [(selection)]="selectedProducts"
+        [rowHover]="true" dataKey="numero">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="numero">Numero <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="nome">Nome <p-sortIcon field="price"></p-sortIcon>
+                </th>
+                <th pSortableColumn="status">Status <p-sortIcon field="category"></p-sortIcon>
+                </th>
+                <th pSortableColumn="tipo">Tipo <p-sortIcon field="rating"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                </td>
+                <td>{{product.numero}}</td>
+                <td>{{product.nome}}</td>
+                <td>{{product.status}}</td>
+                <td>{{product.tipo}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-check"
+                        class="p-button-outlined p-button-success p-mr-2"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                Total de cartoes {{cartoes ? cartoes.length : 0 }}.
+            </div>
+        </ng-template>
+    </p-table>
+</div>

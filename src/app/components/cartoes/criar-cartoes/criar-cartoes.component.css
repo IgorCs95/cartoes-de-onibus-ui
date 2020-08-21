@@ -1,0 +1,9 @@
+.container{
+  background:rgb(221, 221, 221);
+  margin-top: 60px;
+  border-radius: 8px;
+}
+
+button{
+  margin-right: 25px;
+}

@@ -1,0 +1,26 @@
+<div id="principal" class="card-body">
+  <h1>{{title}}</h1>
+  <div style="float: right;">
+  </div>
+
+  <form autocomplete="off" (ngSubmit)="adicionar()">
+    <div class="form-group">
+      <label for="inputNome">Nome</label>
+      <input class="form-control" [(ngModel)]="usuario.nome" name="nome" id="inputNome" required/>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail">Email</label>
+      <input type="email" class="form-control" [(ngModel)]="usuario.email" name="email" id="inputEmail" required placeholder="name@example.com">
+    </div>
+    <div class="form-group">
+      <label for="inputPassword1">Senha</label>
+      <input type="password" class="form-control" [(ngModel)]="usuario.senha" name="senha" required id="inputPassword1" >
+    </div>
+
+    <button pButton pRipple type="submit" label="Salvar" icon="pi pi-plus"  class="p-button-outlined p-button-success p-mr-2"></button>
+    <button  pButton pRipple type="menu" icon="pi pi-chevron-lefts" label="cancelar" class="p-button-outlined p-button-danger p-mr-2" (click)="cancelar()"></button>
+    <button pButton pRipple type="reset" icon="pi pi-times-circle" label="Limpar" class="p-button-outlined p-button-secondary p-mr-2" (click)="clear()"></button>
+    
+  </form>
+  
+</div>

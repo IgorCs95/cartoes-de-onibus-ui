@@ -1,0 +1,52 @@
+<div class="container ui-g card-body">
+  <div class="p-fluid p-formgrid p-grid card-body">
+
+    <div class="p-field p-col-12">
+      <h1>{{title}}</h1>
+    </div>
+    <div class="p-field p-col-12 p-md-6">
+      <label for="inputNumero">Numero</label>
+      <input class="form-control" id="inputNumero" [(ngModel)]="cartao.numeroCartao" required type="number">
+    </div>
+
+    <div class="p-field p-col-12 p-md-6">
+      <label for="inputNome">Nome</label>
+      <input class="form-control"[(ngModel)]="cartao.nome" required id="inputNome">
+    </div>
+ 
+    <div class="p-field p-col-12 p-md-9">
+      <p-selectButton [options]="tipos" [(ngModel)]="cartao.tipocartao"></p-selectButton>
+    </div>
+    <div class="p-field p-col-12 p-md-1"></div>
+
+    <div class="p-field p-col-12 p-md-2">
+      <p-toggleButton onLabel="Ativo" offLabel="Desativado" [(ngModel)]="cartao.status"
+            icon="pi pi-check" required offIcon="pi pi-times" iconPos="right" ></p-toggleButton>
+    </div>
+    <div class="p-field p-col-12 p-md-12">
+
+    </div>
+
+    <div class="p-field p-col-12 p-md-12">
+      <div class="p-formgroup-inline">
+        
+        <div class="p-field">
+          <button pButton pRipple icon="pi pi-check" (click)="adicionar()" label="Salvar"
+            class="p-button-outlined p-button-success p-mr-2"></button>
+        </div>
+
+        <div class="p-field">
+          <button pButton pRipple icon="pi pi-check" (click)="clear()" label="Limpar"
+            class="p-button-outlined p-button-secondary p-mr-2"></button>
+        </div>
+
+        <div class="p-field">
+          <button pButton pRipple icon="pi pi-chevron-lefts" label="cancelar"
+            class="p-button-outlined p-button-danger p-mr-2" routerLink="/cartoes/"></button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

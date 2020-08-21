@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  align-items: center;
+  background:rgb(56, 56, 56);
+  padding: 1.1rem;
+}
+
+.header button{
+  margin-left:50px;
+  color: azure;
+  text-decoration: none;
+  font-size: 2rem;
+  margin-left: 13.3rem;
+}
