@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UsuarioService } from './../usuario.service';
-import { Usuario } from '../../usuario.model'
+import { Usuario } from '../usuario.model'
 import { Router } from '@angular/router';
 
 @Component({
@@ -37,5 +37,5 @@ export class CriarUsuarioComponent {
   cancelar(): void {
     this.router.navigate(['/usuarios'])
   }
-
+  
 }

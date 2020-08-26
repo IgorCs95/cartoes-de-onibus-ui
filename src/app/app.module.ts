@@ -11,9 +11,9 @@ import { CriarUsuarioComponent } from './components/usuarios/criar-usuario/criar
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
-import { CrudUsuariosComponent } from './view/crud-usuarios/crud-usuarios.component';
+import { CrudUsuariosComponent } from './components/usuarios/crud-usuarios/crud-usuarios.component';
 import { HeaderComponent } from './components/template/header/header.component';
-import { CrudCartoesComponent } from './view/crud-cartoes/crud-cartoes.component';
+import { CrudCartoesComponent } from './components/cartoes/crud-cartoes/crud-cartoes.component';
 
 import { ToolbarModule } from 'primeng/toolbar';
 import { SelectButtonModule } from 'primeng/selectbutton';

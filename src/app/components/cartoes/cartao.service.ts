@@ -5,7 +5,7 @@ import { Observable, EMPTY } from 'rxjs';
 
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { map, catchError } from "rxjs/operators";
-import { Cartao } from '../cartao.model';
+import { Cartao } from './cartao.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +21,25 @@ export class CartaoService {
       duration: 3000,
       horizontalPosition: "right",
       verticalPosition: "top",
-      panelClass: isError ? ["msg-error"] : ["msg-success"],
+      panelClass: isError ? ["error"] : ["success"],
     });
   }
+  
+  // showMessage(msg: string, isError: boolean = false,): void {  
+  //   if (isError) {
+  //     this.messageService.add({ 
+  //       severity: 'error' , 
+  //       summary: 'Erro!', 
+  //       detail: msg 
+  //     });
+  //   } else {
+  //       this.messageService.add({ 
+  //         severity: 'success' , 
+  //         summary: 'Sucesso!', 
+  //         detail: msg 
+  //       });
+  //   }
+  // }
   
   adicionar(cartao: Cartao): Observable<Cartao> {
     return this.http.post<Cartao>(this.baseUrl, cartao).pipe(

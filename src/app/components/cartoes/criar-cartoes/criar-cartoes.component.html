@@ -1,3 +1,5 @@
+<p-toast position="top-left"></p-toast>
+
 <div class="container ui-g card-body">
   <div class="p-fluid p-formgrid p-grid card-body">
 
@@ -42,7 +44,7 @@
 
         <div class="p-field">
           <button pButton pRipple icon="pi pi-chevron-lefts" label="cancelar"
-            class="p-button-outlined p-button-danger p-mr-2" routerLink="/cartoes/"></button>
+            class="p-button-outlined p-button-danger p-mr-2" (click)="cancelar()"></button>
         </div>
 
       </div>

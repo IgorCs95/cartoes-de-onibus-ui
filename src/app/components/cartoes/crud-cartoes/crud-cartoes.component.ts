@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CartaoService } from 'src/app/components/cartoes/cartao.service';
+import { CartaoService } from '../cartao.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Cartao } from 'src/app/components/cartao.model';
+import { Cartao } from '../cartao.model';
 import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
@@ -10,19 +10,20 @@ import { MessageService, ConfirmationService } from 'primeng/api';
   styleUrls: ['./crud-cartoes.component.css'],
   providers: [MessageService, ConfirmationService]
 })
-export class CrudCartoesComponent{
+export class CrudCartoesComponent implements OnInit{
 
-  title: 'Cadastrar cartões do Usuario';
-
+  title: "Cadastrar cartões do Usuario:";
+  
   cartao: Cartao = {
     numeroCartao: NaN,
     nome: '',
     status: false,
     tipocartao:null,
     user:{
-      id:38
+      id:0
     }
   }
+  user_id:number;
 
   cartoes: Cartao[];
   selectedProducts: Cartao[];
@@ -36,19 +37,37 @@ export class CrudCartoesComponent{
     
     ) { }
 
-
-  
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get("user_id=");
-    console.log(id);
-    this.cartaoService.buscar().subscribe(product => {
-      this.cartoes = product;
+    this.route.queryParams.subscribe((querey: any)=>{
+      this.cartao.user.id = querey['user_id'];
+      this.user_id = querey['user_id'];
+      console.log(this.user_id)
+      this.caregarCartoes(this.user_id);
     });
+    
+  }
+
+  showMessage(msg: string, isError: boolean = false,): void {  
+    if (isError) {
+      this.messageService.add({ 
+        severity: 'error' , 
+        summary: 'Erro!', 
+        detail: msg,
+        life: 3000 
+      });
+    } else {
+        this.messageService.add({ 
+          severity: 'success' , 
+          summary: 'Sucesso!', 
+          detail: msg,
+          life: 3000 
+        });
+    }
   }
 
   deleteSelectedProducts() {
     this.confirmationService.confirm({
-      message: 'Tem certeza que deseja excluir os produtos Usuarios selecionados?',
+      message: 'Tem certeza que deseja excluir os Cartoes selecionados?',
       header: 'Confirmar',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -57,10 +76,11 @@ export class CrudCartoesComponent{
             this.cartoes = this.cartoes.filter(val => val.numeroCartao !== usuario.numeroCartao);
           });
         });
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+        this.showMessage("Cartoes removidos com Sucesso!");
       }
     });
   }
+
   deleteProduct(cartao: Cartao) {
     this.confirmationService.confirm({
       message: 'Tem certeza que gostaria de Deletar o Usuario ' + cartao.nome + '?',
@@ -69,17 +89,21 @@ export class CrudCartoesComponent{
       accept: () => {
         this.cartaoService.remover(cartao.numeroCartao).subscribe(() => {
           this.cartoes = this.cartoes.filter(val => val.numeroCartao !== cartao.numeroCartao);
+          this.showMessage("Cartão removidos com Sucesso!");
         });
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
       }
+    });  
+  }
+
+  caregarCartoes(id:number):void{
+    this.cartaoService.buscarIdUser(id).subscribe(products => {
+      this.cartoes = products;
     });
-
-    // caregarCartoes() {
-    //   this.cartaoService.buscar().subscribe(products => {
-    //     this.usuarios = products
-    //   });
-    // }
-
+  }
+  
+  adicionarCartao(id: number) {
+    this.router.navigate(['/cartoes/create'],
+      { queryParams: { 'user_id': id } });
   }
 
 }

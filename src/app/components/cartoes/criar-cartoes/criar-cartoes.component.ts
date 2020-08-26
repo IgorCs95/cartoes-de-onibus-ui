@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SelectItem } from 'primeng/api';
+import { SelectItem, MessageService } from 'primeng/api';
 
 
 import { CartaoService } from './../cartao.service';
-import { Cartao } from '../../cartao.model'
+import { Cartao } from '../cartao.model'
 
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UsuarioService } from '../../usuarios/usuario.service';
-
-
+import { FormGroup, } from '@angular/forms';
 
 
 @Component({
   selector: 'app-criar-cartoes',
   templateUrl: './criar-cartoes.component.html',
-  styleUrls: ['./criar-cartoes.component.css']
+  styleUrls: ['./criar-cartoes.component.css'],
+  providers: [MessageService]
 })
 export class CriarCartoesComponent implements OnInit {
 
@@ -38,20 +36,21 @@ export class CriarCartoesComponent implements OnInit {
     status: false,
     tipocartao: null,
     user: {
-      id: 38
+      id: 0
     }
   }
 
   constructor(
     private cartaoService: CartaoService,
     private router: Router,
-    private usuarioServece: UsuarioService,
     private route: ActivatedRoute,
-  ) {}
+    private messageService: MessageService
+  ) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(map => map);
-    console.log(this.route.snapshot.queryParams);
+    this.route.queryParams.subscribe((querey: any) => {
+      this.cartao.user.id = querey['user_id'];
+    });
   }
 
 
@@ -59,9 +58,9 @@ export class CriarCartoesComponent implements OnInit {
     console.log(this.cartao)
     this.cartaoService.adicionar(this.cartao)
       .subscribe(() => {
-        this.cartaoService.showMessage('Usuario criado com Sucesso!')
-        this.router.navigate(['/cartoes'])
-
+        this.showMessage('Cartao criado com Sucesso!')
+        this.router.navigate(['/cartoes/'],
+          { queryParams: { 'user_id': this.cartao.user.id } });
       });
   }
 
@@ -71,15 +70,34 @@ export class CriarCartoesComponent implements OnInit {
       this.cartao.status = false,
       this.cartao.tipocartao = null
   }
-
+  buscarCartoes(id: number) {
+  }
+  
   cancelar(): void {
-    this.router.navigate(['/cartoes'])
+    this.router.navigate(['/cartoes'],
+      { queryParams: { 'user_id': this.cartao.user.id }});
   }
 
-  caregarUsuarios(id?:number) {
+  caregarUsuarios(id?: number) {
     this.cartaoService.buscar().subscribe(products => {
       this.usuarios = products
     });
+  }
+
+  showMessage(msg: string, isError: boolean = false,): void {
+    if (isError) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro!',
+        detail: msg
+      });
+    } else {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso!',
+        detail: msg
+      });
+    }
   }
 }
 

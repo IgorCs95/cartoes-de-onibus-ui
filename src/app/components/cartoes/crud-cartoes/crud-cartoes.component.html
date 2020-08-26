@@ -1,19 +1,26 @@
+<p-toast position="top-left"></p-toast>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
+
 <p-toolbar class="div-botoes" styleClass="p-mb-4">
-    <h2>Gerenciar Cartoes do Usuario</h2>
+    <h2>Cartoes do Usuario {{user_id}}</h2>
     <ng-template pTemplate="left">
     </ng-template>
     <ng-template pTemplate="right">
-        <button pButton type="button" label="Adicionar" class="p-button-outlined" routerLink="/cartoes/create"></button>
-        <button pButton pRipple icon="pi pi-trash" class="p-button-danger" [disabled]="!selectedProducts || !selectedProducts.length"></button>
-        <button pButton pRipple icon="pi pi-arrow-left" label="Retornar" class="p-button-secondary" routerLink="/usuarios"></button>
+        <button pButton type="button" label="Adicionar" class="p-button-outlined"
+            (click)="adicionarCartao(cartao.user.id)"></button>
+        <button pButton pRipple icon="pi pi-trash" (click)="deleteSelectedProducts()" class="p-button-danger"
+            [disabled]="!selectedProducts || !selectedProducts.length"></button>
+            
+        <button pButton pRipple icon="pi pi-arrow-left" label="Retornar" class="p-button-secondary"
+            routerLink="/usuarios"></button>
     </ng-template>
 </p-toolbar>
 
 <div>
-    <p-table [value]="cartoes" #dt [value]="cartoes" [rows]="10" [paginator]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" 
-        [(selection)]="selectedProducts"
-        [rowHover]="true" dataKey="numero">
+    <p-table #dt [value]="cartoes" [rows]="10" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" [(selection)]="selectedProducts"
+        [rowHover]="true" dataKey="numeroCartao">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 3rem">
@@ -36,14 +43,15 @@
                 <td>
                     <p-tableCheckbox [value]="product"></p-tableCheckbox>
                 </td>
-                <td>{{product.numero}}</td>
+                <td>{{product.numeroCartao}}</td>
                 <td>{{product.nome}}</td>
                 <td>{{product.status}}</td>
-                <td>{{product.tipo}}</td>
+                <td>{{product.tipocartao}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-check"
                         class="p-button-outlined p-button-success p-mr-2"></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-outlined p-button-danger"
+                        (click)="deleteProduct(product)"></button>
                 </td>
             </tr>
         </ng-template>

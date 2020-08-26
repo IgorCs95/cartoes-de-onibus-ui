@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from 'src/app/components/usuarios/usuario.service';
+import { UsuarioService } from '../usuario.service';
 import { Router } from '@angular/router';
-import { Usuario } from 'src/app/components/usuario.model';
+import { Usuario } from '../usuario.model';
 import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
@@ -60,10 +60,9 @@ export class CrudUsuariosComponent implements OnInit {
     });
   }
 
-  buscarCartoes(usuario:Usuario){
-    this.usuarioService.buscarCartoes(usuario.id).subscribe(() => {
-      this.router.navigate(["/cartoes/"]);
-    });
+  buscarCartoes(id: number) {
+    this.router.navigate(['/cartoes'],
+      { queryParams: { 'user_id': id }});
   }
 
 
