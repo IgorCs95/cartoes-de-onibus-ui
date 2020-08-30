@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 
 
@@ -74,6 +74,8 @@ import { UsuarioService } from './components/usuarios/usuario.service';
     InputTextModule,
     ConfirmDialogModule,
     MessagesModule,
+    FormsModule,
+    ReactiveFormsModule,
     
   ],
   providers: [

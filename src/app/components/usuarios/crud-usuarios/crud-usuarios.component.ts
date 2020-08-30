@@ -14,7 +14,6 @@ export class CrudUsuariosComponent implements OnInit {
 
   title: 'Gerenciar Usuarios';
 
-
   usuario: Usuario = {
     nome: '',
     email: '',
@@ -63,6 +62,10 @@ export class CrudUsuariosComponent implements OnInit {
   buscarCartoes(id: number) {
     this.router.navigate(['/cartoes'],
       { queryParams: { 'user_id': id }});
+  }
+
+  novoUsuario(){
+    this.router.navigate(['/usuarios/create']);
   }
 
 

@@ -23,8 +23,8 @@ export class UsuarioService {
       duration: 3000,
       horizontalPosition: "right",
       verticalPosition: "top",
-      panelClass: isError ? ["msg-error"] : ["msg-success"],
     });
+    
   }
 
 

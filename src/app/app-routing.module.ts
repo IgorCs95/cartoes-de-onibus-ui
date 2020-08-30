@@ -14,7 +14,7 @@ const routes: Routes = [
     component: CrudUsuariosComponent
   },
   {
-    path: "usuarios/:id",
+    path: "usuarios/create/:id",
     component: CriarUsuarioComponent
   },
   {
@@ -27,6 +27,10 @@ const routes: Routes = [
   },
   {
     path: "cartoes/create",
+    component: CriarCartoesComponent
+  },
+  {
+    path: "cartoes/create/:id",
     component: CriarCartoesComponent
   },
 ];

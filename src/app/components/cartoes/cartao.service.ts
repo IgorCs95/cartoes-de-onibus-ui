@@ -25,21 +25,21 @@ export class CartaoService {
     });
   }
   
-  // showMessage(msg: string, isError: boolean = false,): void {  
-  //   if (isError) {
-  //     this.messageService.add({ 
-  //       severity: 'error' , 
-  //       summary: 'Erro!', 
-  //       detail: msg 
-  //     });
-  //   } else {
-  //       this.messageService.add({ 
-  //         severity: 'success' , 
-  //         summary: 'Sucesso!', 
-  //         detail: msg 
-  //       });
-  //   }
-  // }
+  showMessage(msg: string, isError: boolean = false,): void {  
+    if (isError) {
+      this.messageService.add({ 
+        severity: 'error' , 
+        summary: 'Erro!', 
+        detail: msg 
+      });
+    } else {
+        this.messageService.add({ 
+          severity: 'success' , 
+          summary: 'Sucesso!', 
+          detail: msg 
+        });
+    }
+  }
   
   adicionar(cartao: Cartao): Observable<Cartao> {
     return this.http.post<Cartao>(this.baseUrl, cartao).pipe(
@@ -55,6 +55,16 @@ export class CartaoService {
       catchError((e) => this.errorHandler(e))
     );
   }
+
+  buscarId(id: number): Observable<Cartao> {
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.get<Cartao>(url).pipe(
+      map((obj) => obj),
+      catchError((e) => this.errorHandler(e))
+    );
+  }
+
+
   buscar(): Observable<Cartao[]> {
     return this.http.get<Cartao[]>(this.baseUrl).pipe(
       map((obj) => obj),
